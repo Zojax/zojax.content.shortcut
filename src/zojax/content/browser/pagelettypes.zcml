@@ -1,0 +1,22 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.content.browser">
+
+  <interface
+     name="content.adding"
+     type="zojax.layout.interfaces.IPageletType"
+     interface=".interfaces.IContentAdding" />
+
+  <interface
+     name="content.listing"
+     type="zojax.layout.interfaces.IPageletType"
+     interface=".interfaces.IContainerListing" />
+
+  <interface
+     name="content.contents"
+     type="zojax.layout.interfaces.IPageletType"
+     interface="zojax.content.type.interfaces.IContainerContentsTable" />
+
+</configure>

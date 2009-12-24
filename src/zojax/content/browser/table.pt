@@ -1,0 +1,79 @@
+<div i18n:domain="zojax.content.browser">
+  <form name="containerContentsForm" method="post"
+        tal:attributes="action request/URL" tal:omit-tag="context/isWrapped">
+
+    <div class="z-table-container">
+      <table tal:condition="context" 
+	     tal:attributes="id context/id; class context/cssClass">
+	<thead>
+	  <tr class="z-table-pages"
+	      tal:condition="python:context.batch and(len(context.batch.batches)>1)">
+	    <td tal:attributes="colspan python:len(context.headers)">
+	      <tal:block content="structure context/batch/@@pagelet/batch.view" />
+	    </td>
+	  </tr>
+	  <tr>
+	    <th tal:repeat="header context/headers"
+		tal:content="structure header/render"
+		tal:attributes="id header/id; class header/cssClass"></th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr tal:repeat="record context/records"
+	      tal:attributes="class python:repeat['record'].odd() and 
+			      'z-table-record even' or 'z-table-record odd'">
+	    <td tal:repeat="item record"
+		tal:content="structure item/render"
+		tal:attributes="id item/id; class item/cssClass"></td>
+	  </tr>
+	</tbody>
+      </table>
+      
+      <div class="z-table-emtpy"
+	   tal:condition="not:context" tal:content="context/msgEmptyTable">
+      </div>
+    </div>
+
+    <div class="z-form-controls">
+      <tal:block tal:condition="context/normalButtons">
+	<input type="submit" name="form.buttons.rename" value="Rename"
+	       class="z-form-button" i18n:attributes="value"
+	       tal:condition="context/supportsRename" />
+	<input type="submit" name="form.buttons.cut" value="Cut"
+	       class="z-form-button" i18n:attributes="value"
+	       tal:condition="context/supportsCut" />
+	<input type="submit" name="form.buttons.copy" value="Copy"
+	       class="z-form-button" i18n:attributes="value"
+	       tal:condition="context/supportsCopy" />
+	<input type="submit" name="form.buttons.paste" value="Paste"
+	       class="z-form-button" i18n:attributes="value"
+	       tal:condition="context/hasClipboardContents" />
+	<input type="submit" name="form.buttons.delete" value="Delete"
+	       class="z-form-removebutton" i18n:attributes="value"
+	       tal:condition="context/supportsDelete" />
+      </tal:block>
+      
+      <div tal:condition="context/specialButtons">
+        <input type="submit" name="form.buttons.apply" value="Apply" 
+	       class="z-form-savebutton" i18n:attributes="value" />
+        <input type="submit" name="form.buttons.cancel" value="Cancel"
+	       class="z-form-cancelbutton" i18n:attributes="value" />
+      </div>
+
+      <div tal:condition="python:context.orderButtons and context.normalButtons">
+        <input type="submit" name="form.buttons.moveup"
+	       value="Move Up" class="z-form-button"
+		 i18n:attributes="value" />
+        <input type="submit" name="form.buttons.movetop"
+	       value="Move Top" class="z-form-button"
+	       i18n:attributes="value" />
+        <input type="submit" name="form.buttons.movedown"
+	       value="Move Down" class="z-form-button"
+	       i18n:attributes="value" />
+        <input type="submit" name="form.buttons.movebottom"
+	       value="Move Bottom" class="z-form-button"
+	       i18n:attributes="value" />
+      </div>
+    </div>
+  </form>
+</div>

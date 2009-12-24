@@ -1,0 +1,1 @@
+<tal:block i18n:translate="" i18n:domain="zojax.content.byline">Last modified at <tal:block i18n:name="modified" tal:content="structure view/modified" /></tal:block>

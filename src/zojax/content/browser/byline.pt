@@ -1,0 +1,5 @@
+<div class="z-content-byline" tal:define="elements view/elements"
+     tal:condition="elements">
+  <tal:block tal:repeat="element elements"
+	     tal:content="structure element/render" />
+</div>

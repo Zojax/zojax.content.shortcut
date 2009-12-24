@@ -1,0 +1,111 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.content.browser">
+
+  <!-- content layouts -->
+  <zojax:layout
+     layout="content"
+     uid="content.view"
+     view="zojax.content.type.interfaces.IContentView"
+     template="contentview.pt" />
+
+  <zojax:layout
+     name="content"
+     layout="viewspace"
+     view="zojax.content.type.interfaces.IContentView"
+     class=".contentlayout.ContentViewLayout"
+     template="contentlayout.pt" />
+
+  <!-- content view -->
+  <zojax:pagelet
+     name="index.html"
+     for="zojax.content.type.interfaces.IContent"
+     template="content.pt"
+     provides="zojax.content.type.interfaces.IContentView"
+     permission="zope.View" />
+
+  <!-- content preview -->
+  <zojax:pagelet
+     type="content.type.preview"
+     for="zojax.content.type.interfaces.IContent"
+     template="preview.pt"
+     permission="zope.View" />
+
+  <!-- content delete -->
+  <zojax:pagelet
+     name="delete.html"
+     for="zojax.content.type.interfaces.IContent"
+     template="delete.pt"
+     class=".delete.DeleteContent"
+     permission="zojax.DeleteContent" />
+
+  <!-- content delete -->
+  <zojax:pagelet
+     name="delete.html"
+     for="zojax.content.type.interfaces.IUnremoveableContent"
+     class=".delete.DeleteUnremoveableContent"
+     permission="zojax.DeleteContent" />
+
+  <!-- content delete -->
+  <zojax:pagelet
+     name="delete.html"
+     for="zojax.content.type.interfaces.IRenameNotAllowed"
+     class=".delete.DeleteUnremoveableContent"
+     permission="zojax.DeleteContent" />
+
+  <!-- content.header -->
+  <zojax:pageelement
+     name="content.header"
+     for="zojax.content.type.interfaces.IContent"
+     template="contentheader.pt"
+     class=".contentheader.ContentHeader" />
+
+  <!-- content.title -->
+  <zojax:pageelement
+     name="content.title"
+     for="zojax.content.type.interfaces.IContent"
+     provides=".interfaces.IContentTitle" />
+
+  <zojax:pageelement
+     title="Content title"
+     name="content.header.title"
+     for="zojax.content.type.interfaces.IContent"
+     template="contenttitle.pt"
+     class=".contentitem.ContentItem"
+     manager=".interfaces.IContentTitle"
+     weight="99" />
+
+  <!-- content.description -->
+  <zojax:pageelement
+     name="content.description"
+     for="zojax.content.type.interfaces.IContent"
+     provides=".interfaces.IContentDescription" />
+
+  <zojax:pageelement
+     title="Content description"
+     name="content.header.description"
+     for="zojax.content.type.interfaces.IContent"
+     template="contentdescription.pt"
+     class=".contentitem.ContentItem"
+     manager=".interfaces.IContentDescription"
+     weight="9999" />
+
+  <!-- content.footer -->
+  <zojax:pageelement
+     name="content.footer"
+     for="zojax.content.type.interfaces.IContent"
+     provides=".interfaces.IContentFooter"
+     class=".contentfooter.ContentFooter" />
+
+  <!-- content.bottom -->
+  <zojax:pageelement
+     name="content.bottom"
+     for="zojax.content.type.interfaces.IContent"
+     provides=".interfaces.IContentBottom" />
+
+  <!-- IContent breadcrumb -->
+  <adapter factory=".breadcrumb.ContentBreadcrumb" />
+
+</configure>

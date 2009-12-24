@@ -1,0 +1,31 @@
+<div id="z-content-adding" tal:define="infos context/addingInfo"
+     i18n:domain="zojax.content.browser">
+  <h2 i18n:translate="">Add new content</h2>
+  <div i18n:translate="" class="z-page-description">
+    Select the type of item you want to add to your container.</div>
+
+  <fieldset>
+    <legend i18n:translate="">Available items</legend>
+
+    <ul class="z-listing">
+      <li tal:repeat="info infos"
+	  tal:attributes="class python:repeat['info'].odd() and 'odd' or 'even'">
+	<div class="z-listing-icon">
+	  <tal:block tal:content="structure info/icon|nothing" />
+	</div>
+	<div>
+	  <a tal:attributes="href info/action"
+	     tal:content="info/title" i18n:translate="">
+	    Folder
+	  </a>
+	  <div class="byline">
+	    <tal:block tal:content="info/description" i18n:translate="">
+	      Folders are generic containers for content, including other folders.
+	    </tal:block> &nbsp;
+	  </div>
+	</div>
+      </li>
+    </ul>
+    <div class="visualClear"></div>
+  </fieldset>
+</div>

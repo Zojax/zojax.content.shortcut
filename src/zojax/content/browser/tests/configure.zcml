@@ -1,0 +1,109 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser">
+
+  <permission
+     id="zojax.AddContainer"
+     title="Add container" />
+
+  <permission
+     id="zojax.AddContent1"
+     title="Add content 1" />
+
+  <zojax:content
+     schema=".content.IContainer"
+     name="container"
+     title="Container"
+     class=".content.Container"
+     permission="zojax.AddContainer" />
+
+  <class class=".content.Container">
+    <implements interface="zojax.ownership.interfaces.IOwnerAware" />
+    <implements interface="zojax.content.type.interfaces.IAnnotatableOrder" />
+    <implements interface="zojax.content.type.interfaces.IContainerContentsAware" />
+
+    <require
+       permission="zope.View"
+       interface="zojax.content.type.interfaces.IItem
+		  zope.app.container.interfaces.IReadContainer" />
+    <require
+       permission="zojax.ModifyContent"
+       interface="zope.app.container.interfaces.IWriteContainer"
+       set_schema="zojax.content.type.interfaces.IItem" />
+  </class>
+
+  <zojax:content
+     schema=".content.IContainer2"
+     name="container2"
+     title="Container2"
+     class=".content.Container2"
+     permission="zojax.AddContainer" />
+
+  <class class=".content.Container2">
+    <implements interface="zojax.ownership.interfaces.IOwnerAware" />
+    <implements interface="zojax.content.type.interfaces.IContainerContentsAware" />
+
+    <require
+       permission="zope.View"
+       interface="zojax.content.type.interfaces.IItem
+		  zope.app.container.interfaces.IReadContainer" />
+    <require
+       permission="zojax.ModifyContent"
+       interface="zope.app.container.interfaces.IWriteContainer"
+       set_schema="zojax.content.type.interfaces.IItem" />
+  </class>
+
+  <!-- content1 -->
+  <zojax:content
+     schema=".content.IContent1"
+     name="content1"
+     title="Content 1"
+     class=".content.Content1"
+     permission="zojax.AddContent1" />
+
+  <class class=".content.Content1">
+    <implements interface="zojax.ownership.interfaces.IOwnerAware" />
+
+    <require
+       permission="zope.View"
+       interface=".content.IContent1" />
+    <require
+       permission="zojax.ModifyContent"
+       set_schema=".content.IContent1" />
+  </class>
+
+  <zojax:pagelet
+     name="index.html"
+     for=".content.IContent1"
+     template="content.pt"
+     provides="zojax.content.type.interfaces.IContentView"
+     permission="zope.View" />
+
+  <!-- content2 -->
+  <zojax:content
+     schema=".content.IContent2"
+     name="content2"
+     title="Content 2"
+     class=".content.Content2"
+     permission="zojax.AddContent1" />
+
+  <class class=".content.Content2">
+    <implements interface="zojax.ownership.interfaces.IOwnerAware" />
+
+    <require
+       permission="zope.View"
+       interface=".content.IContent2" />
+    <require
+       permission="zojax.ModifyContent"
+       set_schema=".content.IContent2" />
+  </class>
+
+  <zojax:pagelet
+     name="test.html"
+     for="*"
+     template="test.pt"
+     provides="zojax.content.type.interfaces.IContentView"
+     permission="zope.Public" />
+
+</configure>

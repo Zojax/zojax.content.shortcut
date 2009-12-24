@@ -1,0 +1,10 @@
+<html>
+  <body>
+    <div tal:define="context nocall:maincontext"
+       tal:content="structure provider:portal.breadcrumbs"></div>
+    <div id="z-portal-statusmessage"
+	 tal:content="structure provider:statusMessage">
+    </div>
+    <tal:block tal:content="structure view/render" />
+  </body>
+</html>

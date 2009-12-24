@@ -1,0 +1,6 @@
+<div class="z-content-preview">
+  <tal:block content="structure pageelement:content.header.title" />
+  <tal:block content="structure pageelement:content.header.description" />
+
+  <tal:block content="structure pagelet:content.type.view" />
+</div>

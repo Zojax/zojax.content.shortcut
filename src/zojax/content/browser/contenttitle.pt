@@ -1,0 +1,2 @@
+<tal:block content="structure pagelet:+context.actions" />
+<h1 class="z-content-title" tal:content="view/title"></h1>

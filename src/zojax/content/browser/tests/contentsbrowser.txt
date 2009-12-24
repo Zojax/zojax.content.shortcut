@@ -1,0 +1,298 @@
+==================
+Container contents
+==================
+
+  >>> from zope import component, event, interface
+  >>> from zope.lifecycleevent import ObjectCreatedEvent
+  >>> from zope.app.testing.functional import getRootFolder
+  >>> from zojax.content.browser.tests import content
+  >>> from zojax.ownership.interfaces import IOwnership
+  >>> from zojax.content.type.interfaces import IUnremoveableContent
+
+  >>> root = getRootFolder()
+  >>> container = content.Container('Container')
+  >>> event.notify(ObjectCreatedEvent(container))
+  >>> root['container'] = container
+  >>> IOwnership(container).ownerId = 'zope.user'
+
+  >>> contentOb = content.Content1('Content1')
+  >>> event.notify(ObjectCreatedEvent(contentOb))
+  >>> container['content1'] = contentOb
+
+  >>> contentOb = content.Content1('Content2')
+  >>> event.notify(ObjectCreatedEvent(contentOb))
+  >>> container['content2'] = contentOb
+
+  >>> contentOb = content.Content1('Content3')
+  >>> event.notify(ObjectCreatedEvent(contentOb))
+  >>> container['content3'] = contentOb
+
+  >>> contentOb = content.Content1('Content4')
+  >>> event.notify(ObjectCreatedEvent(contentOb))
+  >>> container['content4'] = contentOb
+
+  >>> from zope.testbrowser.testing import Browser
+
+  >>> actor = Browser()
+  >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+  >>> actor.handleErrors = False
+  >>> actor.open("http://localhost/container/context.html/contents/")
+
+
+Content breadcrumbs
+-------------------
+
+  >>> print actor.contents
+  <html>
+  ...
+  ...<div class="z-breadcrumbs">
+     <span id="z-breadcrumbs-you-are-here">You are here:</span>
+     <a href="http://localhost/">top</a>
+     <span class="z-breadcrumbSeparator">&raquo;</span>
+     <a href="http://localhost/container/">Container</a> 
+  </div>...
+  ...
+  </html>
+
+
+Content listing
+---------------
+
+  >>> actor.open("http://localhost/container/@@listing.html")
+  >>> print actor.contents
+  <html>
+  ...<a href="http://localhost/container/content1/">content1</a>...
+  ...<a href="http://localhost/container/content2/">content2</a>...
+  ...<a href="http://localhost/container/content3/">content3</a>...
+  ...<a href="http://localhost/container/content4/">content4</a>...
+  </html>
+
+
+Contents order
+--------------
+
+  >>> actor.open("http://localhost/container/context.html/contents/")
+  >>> print actor.contents
+  <html>
+  ...<a href="http://localhost/container/content1/...">content1</a>...
+  ...<a href="http://localhost/container/content2/...">content2</a>...
+  ...<a href="http://localhost/container/content3/...">content3</a>...
+  ...<a href="http://localhost/container/content4/...">content4</a>...
+  </html>
+
+  >>> actor.getControl(name='ids:list').value = ['content4']
+  >>> actor.getControl(name='form.buttons.moveup').click()
+  >>> print actor.contents
+  <html>
+  ...Items order have been changed...
+  ...<a href="http://localhost/container/content1/...">content1</a>...
+  ...<a href="http://localhost/container/content2/...">content2</a>...
+  ...<a href="http://localhost/container/content4/...">content4</a>...
+  ...<a href="http://localhost/container/content3/...">content3</a>...
+  </html>
+
+  >>> actor.getControl(name='ids:list').value = ['content2', 'content4']
+  >>> actor.getControl(name='form.buttons.moveup').click()
+  >>> print actor.contents
+  <html>
+  ...<a href="http://localhost/container/content2/...">content2</a>...
+  ...<a href="http://localhost/container/content4/...">content4</a>...
+  ...<a href="http://localhost/container/content1/...">content1</a>...
+  ...<a href="http://localhost/container/content3/...">content3</a>...
+  </html>
+
+  >>> actor.getControl(name='ids:list').value = ['content4', 'content1']
+  >>> actor.getControl(name='form.buttons.movetop').click()
+  >>> print actor.contents
+  <html>
+  ...<a href="http://localhost/container/content4/...">content4</a>...
+  ...<a href="http://localhost/container/content1/...">content1</a>...
+  ...<a href="http://localhost/container/content2/...">content2</a>...
+  ...<a href="http://localhost/container/content3/...">content3</a>...
+  </html>
+
+  >>> actor.getControl(name='ids:list').value = ['content4', 'content1']
+  >>> actor.getControl(name='form.buttons.movedown').click()
+  >>> print actor.contents
+  <html>
+  ...<a href="http://localhost/container/content2/...">content2</a>...
+  ...<a href="http://localhost/container/content4/...">content4</a>...
+  ...<a href="http://localhost/container/content1/...">content1</a>...
+  ...<a href="http://localhost/container/content3/...">content3</a>...
+  </html>
+
+  >>> actor.getControl(name='ids:list').value = ['content4', 'content2']
+  >>> actor.getControl(name='form.buttons.movebottom').click()
+  >>> print actor.contents
+  <html>
+  ...<a href="http://localhost/container/content1/...">content1</a>...
+  ...<a href="http://localhost/container/content3/...">content3</a>...
+  ...<a href="http://localhost/container/content2/...">content2</a>...
+  ...<a href="http://localhost/container/content4/...">content4</a>...
+  </html>
+
+  >>> actor.open("http://localhost/container/@@rebuildorder.html")
+  >>> actor.getLink('Contents').click()
+  >>> print actor.contents
+  <html>
+  ...<a href="http://localhost/container/content1/...">...Content1...
+  ...<a href="http://localhost/container/content2/...">...Content2...
+  ...<a href="http://localhost/container/content3/...">...Content3...
+  ...<a href="http://localhost/container/content4/...">...Content4...
+  </html>
+
+
+Cut/Paste/Copy/Delete
+---------------------
+
+  >>> actor.getControl(name='form.buttons.cut').click()
+  >>> print actor.contents
+  <html>
+  ...You didn't specify any ids to cut...
+  </html>
+
+  >>> actor.getControl(name='ids:list').value = ['content2']
+  >>> actor.getControl(name='form.buttons.cut').click()
+  >>> actor.getControl(name='form.buttons.paste').click()
+  >>> print actor.contents
+  <html>
+  ...<a href="http://localhost/container/content1/...">...Content1...
+  ...<a href="http://localhost/container/content3/...">...Content3...
+  ...<a href="http://localhost/container/content4/...">...Content4...
+  ...<a href="http://localhost/container/content2-2/...">...Content2...
+  </html>
+
+  >>> actor.reload()
+  >>> actor.getControl(name='form.buttons.copy').click()
+  >>> print actor.contents
+  <html>
+  ...You didn't specify any ids to copy...
+  </html>
+
+  >>> actor.getControl(name='ids:list').value = ['content1']
+  >>> actor.getControl(name='form.buttons.copy').click()
+  >>> actor.getControl(name='form.buttons.paste').click()
+  >>> print actor.contents
+  <html>
+  ...<a href="http://localhost/container/content1/...">...Content1...
+  ...<a href="http://localhost/container/content3/...">...Content3...
+  ...<a href="http://localhost/container/content4/...">...Content4...
+  ...<a href="http://localhost/container/content2-2/...">...Content2...
+  ...<a href="http://localhost/container/content1-2/...">...Content1...
+  </html>
+
+  >>> container2 = content.Container2('Container2')
+  >>> event.notify(ObjectCreatedEvent(container2))
+  >>> root['container']['container2'] = container2
+  >>> IOwnership(container).ownerId = 'zope.user'
+
+  >>> actor.getControl(name='ids:list').value = ['content1', 'content3']
+  >>> actor.getControl(name='form.buttons.copy').click()
+  >>> actor.open("http://localhost/container/container2/context.html/contents/")
+  >>> actor.getControl(name='form.buttons.paste').click()
+  >>> print actor.contents
+  <html>
+  ...
+  <h2>Contents</h2>
+  <a class="z-content-byline z-content-parent"
+     href="http://localhost/container/@@context.html">
+     Up one level
+  </a>
+  ...
+  ...<a href="http://localhost/container/container2/content1/...">...Content1...
+  ...<a href="http://localhost/container/container2/content3/...">...Content3...
+  ...</html>
+
+  >>> actor.open("http://localhost/container/context.html/contents/")
+  >>> actor.getControl(name='form.buttons.delete').click()
+  >>> print actor.contents
+  <html>
+  ...You didn't specify any ids to remove...
+  </html>
+
+  >>> actor.getControl(name='ids:list').value = [
+  ...     'content4','content2-2','content1-2', 'container2']
+  >>> actor.getControl(name='form.buttons.delete').click()
+  >>> print actor.contents
+  <html>
+  ...<a href="http://localhost/container/content1/...">...Content1...
+  ...<a href="http://localhost/container/content3/...">...Content3...
+  </html>
+
+
+Contents renaming
+-----------------
+
+  >>> actor.getControl(name='form.buttons.rename').click()
+  >>> print actor.contents
+  <html>
+  ...You didn't specify any ids to rename...
+  </html>
+
+  >>> actor.getControl(name='ids:list').value = ['content1']
+  >>> actor.getControl(name='form.buttons.rename').click()
+  >>> actor.getControl(name='form.buttons.cancel').click()
+
+  >>> actor.open("http://localhost/container/context.html/contents/")
+  >>> actor.getControl(name='ids:list').value = ['content1']
+  >>> actor.getControl(name='form.buttons.rename').click()
+
+  >>> actor.getControl(name='newIds:list').value = 'content10'
+  >>> actor.getControl(name='newTitles:list').value = 'Content10'
+  >>> actor.getControl(name='form.buttons.apply').click()
+  >>> print actor.contents
+  <html>
+  ...Items have been renamed...
+  ...Items have been retitled...
+  ...<a href="http://localhost/container/content3/...">...Content3...
+  ...<a href="http://localhost/container/content10/...">...Content10...
+  </html>
+
+  >>> actor.getControl(name='ids:list').value = ['content10']
+  >>> actor.getControl(name='form.buttons.rename').click()
+
+  >>> actor.getControl(name='newIds:list').value = 'content3'
+  >>> actor.getControl(name='newTitles:list').value = 'Content3'
+  >>> actor.getControl(name='form.buttons.apply').click()
+  >>> print actor.contents
+  <html>
+  ...Item with this name already exists...
+  ...Items have been retitled...
+  ...<a href="http://localhost/container/content3/...">...Content3...
+  ...<a href="http://localhost/container/content10/...">...Content3...
+  </html>
+
+  >>> actor.open("http://localhost/container/context.html/contents/")
+  >>> interface.alsoProvides(container['content3'], IUnremoveableContent)
+  >>> actor.getControl(name='ids:list').value = ['content3']
+  >>> actor.getControl(name='form.buttons.rename').click()
+  >>> actor.getControl(name='newIds:list').value = 'content3'
+  Traceback (most recent call last):
+  ...
+  LookupError: name 'newIds:list'
+
+
+'index.html' content in container
+---------------------------------
+
+If container contains 'index.html' object, container show it as
+default view.
+
+  >>> actor.open("http://localhost/container/context.html/contents/")
+  >>> actor.getControl(name='ids:list').value = ['content10']
+  >>> actor.getControl(name='form.buttons.rename').click()
+
+  >>> actor.getControl(name='newIds:list').value = 'index.html'
+  >>> actor.getControl(name='newTitles:list').value = 'Content'
+  >>> actor.getControl(name='form.buttons.apply').click()
+  >>> container['index.html'].url = u'http://zojax.net'
+
+  >>> actor.open("http://localhost/container/@@listing.html")
+  >>> print actor.contents
+  <html>
+  ...
+  ...<h1 class="z-content-title">Content</h1><div class="z-content-byline">
+      Last modified at ...
+  </div><div class="z-content-body"><div>URL: http://zojax.net</div></div>
+  ...
+  </html>

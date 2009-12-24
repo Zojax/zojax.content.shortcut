@@ -1,0 +1,5 @@
+<div id="z-content" tal:attributes="class layout/klass">
+  <tal:block tal:content="structure view/render" />
+
+  <tal:block tal:content="structure pageelement:content.bottom" />
+</div>

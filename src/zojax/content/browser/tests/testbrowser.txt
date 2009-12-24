@@ -1,0 +1,92 @@
+=============
+Tests browser
+=============
+
+  >>> from zope import component, event, interface
+  >>> from zope.lifecycleevent import ObjectCreatedEvent
+  >>> from zope.app.testing.functional import getRootFolder
+  >>> from zojax.content.browser.tests import content
+  >>> from zojax.ownership.interfaces import IOwnership
+
+  >>> root = getRootFolder()
+  >>> container = content.Container('Container')
+  >>> event.notify(ObjectCreatedEvent(container))
+  >>> root['container'] = container
+  >>> IOwnership(container).ownerId = 'zope.user'
+
+  >>> contentOb = content.Content2('Content')
+  >>> event.notify(ObjectCreatedEvent(contentOb))
+  >>> container['content'] = contentOb
+
+  >>> from zope.testbrowser.testing import Browser
+
+  >>> actor = Browser()
+  >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+  >>> actor.handleErrors = False
+
+
+Adding
+------
+
+  >>> actor.open("http://localhost/container/+/")
+  >>> print actor.contents
+  <html>
+  ...
+  <legend>Available items</legend>
+  ...<a href="http://localhost/container/+/container/">Container</a>...
+  ...<a href="http://localhost/container/+/container2/">Container2</a>...
+  ...<a href="http://localhost/container/+/content1/">Content 1</a>...
+  ...<a href="http://localhost/container/+/content2/">Content 2</a>...
+  </html>
+
+  >>> actor.getLink('Content 1').click()
+
+
+Default content view
+--------------------
+
+  >>> actor.open("http://localhost/container/content/")
+  >>> print actor.contents
+  <html>
+  ...
+  ...<h1 class="z-content-title">Content</h1><div class="z-content-byline">
+    Last modified at ...
+  </div><div class="z-content-body"><p></p></div>
+  ...
+  </html>
+
+
+Delete
+------
+
+  >>> actor.open("http://localhost/container/content/delete.html")
+  >>> print actor.contents
+  <html>
+  ...
+  ...<h1 class="z-content-title">Content</h1>...
+  ...
+  ...<form action="delete.html" method="post">
+    <div class="z-form-controls">
+       <hr />
+       <input type="submit" class="z-form-cancelbutton" name="form.delete.cancel" value="Cancel" />
+       <input type="submit" class="z-form-removebutton" name="form.delete.content" value="Delete" />
+    </div>
+  </form>
+  ...
+  </html>
+
+  >>> actor.getControl('Cancel').click()
+  >>> actor.url
+  'http://localhost/container/content/'
+
+  >>> actor.open("http://localhost/container/content/delete.html")
+  >>> actor.getControl('Delete').click()
+  >>> print actor.contents
+  <html>
+  ...
+  ...<div class="statusMessage">Content has been deleted.</div>...
+  ...
+  </html>
+
+  >>> actor.url
+  'http://localhost/container/'

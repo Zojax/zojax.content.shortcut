@@ -1,0 +1,18 @@
+<div i18n:domain="zojax.content.browser">
+  <h2>Contents</h2>
+  <a class="z-content-byline z-content-parent"
+     tal:define="upper context/upperContainer" i18n:translate=""
+     tal:condition="upper" tal:attributes="href upper">
+    Up one level
+  </a>
+  <br /><br />
+
+  <tal:block
+     define="context nocall:context/context"
+     content="structure provider:content.container.contents" />
+
+  <tal:block condition="context/hasAdding">
+    <br /><br />
+    <tal:block content="structure context/context/@@pagelet/content.adding" />
+  </tal:block>
+</div>

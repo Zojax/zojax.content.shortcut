@@ -1,0 +1,277 @@
+# #############################################################################
+#
+# Copyright (c) 2009 Zope Foundation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+# #############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: Development/Unknown\n"
+"POT-Creation-Date: Thu Nov 13 12:57:26 2008\n"
+"PO-Revision-Date: 2008-11-12 17:11+0600\n"
+"Last-Translator: Nikolay Kim <fafhrd91@gmail.com>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/content/browser/adding.pt:3
+msgid "Add new content"
+msgstr "Добавить новый контент"
+
+#: src/zojax/content/browser/adding.pt:4
+msgid "Select the type of item you want to add to your container."
+msgstr "Выберите тип элемента, который Вы хотите добавить в свой контейнер."
+
+#: src/zojax/content/browser/adding.pt:9
+msgid "Available items"
+msgstr "Доступные элементы"
+
+#: src/zojax/content/browser/adding.py:126
+#: src/zojax/content/browser/form.py:82
+msgid "Add"
+msgstr "Добавить"
+
+#: src/zojax/content/browser/adding.py:39
+msgid "Add content"
+msgstr "Добавить контент"
+
+#: src/zojax/content/browser/changeowner.pt:18
+msgid "Change owner"
+msgstr "Изменить владельца"
+
+#: src/zojax/content/browser/changeowner.pt:7
+msgid "Current `Owner` is: ${owner}"
+msgstr "Текущий `Владелец`: ${owner}"
+
+#: src/zojax/content/browser/changeowner.py:30
+msgid "Change content owner"
+msgstr "Изменить владельца элемента"
+
+#: src/zojax/content/browser/changeowner.py:35
+#: src/zojax/content/browser/content.zcml:55
+msgid "Owner"
+msgstr "Владелец"
+
+#: src/zojax/content/browser/changeowner.py:36
+msgid "Select new owner for content."
+msgstr "Выбирите нового владельца."
+
+#: src/zojax/content/browser/changeowner.py:52
+msgid "Please select principal."
+msgstr "Выбирите пользователя."
+
+#: src/zojax/content/browser/changeowner.py:55
+msgid "Content owner has been changed."
+msgstr "Владелец контента был изменен."
+
+#: src/zojax/content/browser/configure.zcml:27
+msgid "Contents"
+msgstr "Содержимое"
+
+#: src/zojax/content/browser/content.zcml:40
+msgid "View"
+msgstr "Просмотр"
+
+#: src/zojax/content/browser/content.zcml:47
+msgid "Edit"
+msgstr "Редактировать"
+
+#: src/zojax/content/browser/content.zcml:70
+msgid "Content title"
+msgstr "Заголовок контента"
+
+#: src/zojax/content/browser/content.zcml:92
+msgid "Content description"
+msgstr "Описание контента"
+
+#: src/zojax/content/browser/contentitem.py:32
+#: src/zojax/content/browser/table.py:495
+msgid "[No title]"
+msgstr "[Без названия]"
+
+#: src/zojax/content/browser/contents.pt:4
+msgid "Up one level"
+msgstr "Вверх на один уровень"
+
+#: src/zojax/content/browser/contentsmenuitem.py:55
+msgid "Container contents"
+msgstr "Содержимое контейнера"
+
+#: src/zojax/content/browser/form.py:101 src/zojax/content/browser/form.py:183
+#: src/zojax/content/browser/table.pt:55
+msgid "Cancel"
+msgstr "Отменить"
+
+#: src/zojax/content/browser/form.py:131
+msgid "Content has been successfully updated."
+msgstr "Контент успешно изменен."
+
+#: src/zojax/content/browser/form.py:132
+msgid "Edit action has been canceled."
+msgstr "Редактирование элемента отменено."
+
+#: src/zojax/content/browser/form.py:151
+msgid "Save"
+msgstr "Сохранить"
+
+#: src/zojax/content/browser/form.py:46
+msgid "Content creation has been canceled."
+msgstr "Создание элемента отменено."
+
+#: src/zojax/content/browser/formeditbuttons.pt:10
+#: src/zojax/content/browser/formaddbuttons.pt:11
+msgid ""
+"Should not contain spaces, underscores or mixed case. Short Name is part of "
+"the item's web address."
+msgstr ""
+"Имя не должно содержать пробелов, подчеркивания и смешанный регистр. "
+"Короткое имя часть веб адреса элемента."
+
+#: src/zojax/content/browser/formeditbuttons.pt:6
+#: src/zojax/content/browser/formaddbuttons.pt:6
+msgid "Content short name"
+msgstr "Короткое имя элемента"
+
+#: src/zojax/content/browser/formvalidator.py:29
+msgid "Content name already in use."
+msgstr "Имя уже используется другим элементом."
+
+#: src/zojax/content/browser/table.pt:35
+msgid "Rename"
+msgstr "Переименовать"
+
+#: src/zojax/content/browser/table.pt:38
+msgid "Cut"
+msgstr "Вырезать"
+
+#: src/zojax/content/browser/table.pt:41
+msgid "Copy"
+msgstr "Копировать"
+
+#: src/zojax/content/browser/table.pt:44
+msgid "Paste"
+msgstr "Вставить"
+
+#: src/zojax/content/browser/table.pt:47
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/zojax/content/browser/table.pt:53
+msgid "Apply"
+msgstr "Применить"
+
+#: src/zojax/content/browser/table.pt:60
+msgid "Move Up"
+msgstr ""
+
+#: src/zojax/content/browser/table.pt:63
+msgid "Move Top"
+msgstr ""
+
+#: src/zojax/content/browser/table.pt:66
+msgid "Move Down"
+msgstr ""
+
+#: src/zojax/content/browser/table.pt:69
+msgid "Move Bottom"
+msgstr ""
+
+#. Default: "error"
+#: src/zojax/content/browser/table.py:101
+msgid "You didn't specify any ids to rename."
+msgstr "Вы не выбрали элементы для переименования."
+
+#: src/zojax/content/browser/table.py:137
+msgid "Items order have been changed."
+msgstr "Порядок элементов изменен."
+
+#: src/zojax/content/browser/table.py:168
+msgid "You didn't specify any ids to remove."
+msgstr "Вы не выбрали элементы для удаления."
+
+#: src/zojax/content/browser/table.py:176
+msgid "Selected items has been removed."
+msgstr "Выбранные элементы удалены."
+
+#: src/zojax/content/browser/table.py:184
+msgid "You didn't specify any ids to copy."
+msgstr "Вы не выбрали элементы для копирования."
+
+#. Default: "name"
+#: src/zojax/content/browser/table.py:196
+msgid "Object '${name}' cannot be copied"
+msgstr ""
+
+#: src/zojax/content/browser/table.py:205
+msgid "Selected items has been copied."
+msgstr "Выбранные элементы скопированны."
+
+#: src/zojax/content/browser/table.py:213
+msgid "You didn't specify any ids to cut."
+msgstr "Вы не выбрали элементы для вырезания."
+
+#. Default: "name"
+#: src/zojax/content/browser/table.py:225
+msgid "Object '${name}' cannot be moved"
+msgstr ""
+
+#: src/zojax/content/browser/table.py:234
+msgid "Selected items has been cut."
+msgstr "Выбранные элементы вырезаны."
+
+#: src/zojax/content/browser/table.py:301
+msgid "The given name(s) %s is / are already being used"
+msgstr ""
+
+#: src/zojax/content/browser/table.py:400
+msgid "Name"
+msgstr "Имя"
+
+#: src/zojax/content/browser/table.py:432
+msgid "Item with this name already exists."
+msgstr "Имя уже используется другим элементом."
+
+#: src/zojax/content/browser/table.py:439
+msgid "Items have been renamed."
+msgstr "Элементы были переименованны."
+
+#: src/zojax/content/browser/table.py:478
+msgid "Title"
+msgstr "Заголовок"
+
+#: src/zojax/content/browser/table.py:516
+msgid "Items have been retitled."
+msgstr "Заголовок элементов изменен."
+
+#: src/zojax/content/browser/table.py:54
+msgid "Content listing"
+msgstr "Содержимое"
+
+#: src/zojax/content/browser/table.py:549
+msgid "Type"
+msgstr "Тип"
+
+#: src/zojax/content/browser/table.py:56
+msgid "There are no items in this container."
+msgstr "В этом контейнере нет элементов."
+
+#: src/zojax/content/browser/table.py:567
+msgid "Size"
+msgstr "Размер"
+
+#: src/zojax/content/browser/table.py:589
+msgid "Created"
+msgstr "Дата создания"
+
+#: src/zojax/content/browser/table.py:614
+msgid "Modified"
+msgstr "Дата изменения"

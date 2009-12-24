@@ -1,0 +1,73 @@
+==========================
+Content byline information
+==========================
+
+    >>> from zope import component, interface, event
+    >>> from zope.lifecycleevent import ObjectCreatedEvent
+    >>> from zope.lifecycleevent import ObjectModifiedEvent
+    >>> from zope.app.intid import IntIds
+    >>> from zope.app.intid.interfaces import IIntIds
+    >>> from zope.app.testing.functional import getRootFolder
+    >>> from zope.app.component.hooks import setSite
+    >>> from zojax.catalog.catalog import Catalog, ICatalog
+    >>> from zojax.content.browser.tests.content import Content1
+    >>> from zojax.ownership.interfaces import IOwnership
+    >>> from zojax.personal.space.manager import PersonalSpaceManager, IPersonalSpaceManager
+
+    >>> root = getRootFolder()
+    >>> setSite(root)
+    >>> sm = root.getSiteManager()
+
+    >>> root['ids'] = IntIds()
+    >>> sm.registerUtility(root['ids'], IIntIds)
+    >>> root['catalog'] = Catalog()
+    >>> sm.registerUtility(root['catalog'], ICatalog)
+    >>> root['people'] = PersonalSpaceManager()
+    >>> sm.registerUtility(root['people'], IPersonalSpaceManager)
+
+    >>> content = Content1('Content title')
+    >>> IOwnership(content).ownerId = u'zope.user'
+    >>> event.notify(ObjectCreatedEvent(content))
+    >>> root['content'] = content
+
+    >>> from zope.testbrowser.testing import Browser
+
+    >>> actor = Browser()
+    >>> actor.handleErrors = False
+    >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+    >>> actor.open("http://localhost/content/test.html")
+    >>> print actor.contents
+    <html>
+    ...
+    ...<div class="z-content-byline">
+      Created by User
+      Last modified at ...
+    </div>...
+    ...
+    </html>
+
+    >>> IOwnership(content).ownerId = u'zope.mgr'
+    >>> actor.reload()
+    >>> print actor.contents
+    <html>
+    ...
+    ...<div class="z-content-byline">
+      Created by User
+      Last modified at ...
+    </div>...
+    ...
+    </html>
+
+    >>> event.notify(ObjectModifiedEvent(content))
+    >>> actor.reload()
+    >>> print actor.contents
+    <html>
+    ...
+    ...<div class="z-content-byline">
+      Created by <a href="http://localhost/people/manager/">Manager</a>
+      Last modified at ...
+    </div>...
+    ...
+    </html>
+
+    >>> setSite(None)

@@ -1,0 +1,32 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.content.browser">
+
+  <!-- content.byline -->
+  <zojax:pageelement
+     name="content.byline"
+     for="zojax.content.type.interfaces.IContent"
+     template="byline.pt"
+     provides=".interfaces.IContentByline" />
+
+  <!-- content owner -->
+  <zojax:pageelement
+     name="content.byline.owner"
+     for="zojax.content.type.interfaces.IContent"
+     template="bylineowner.pt"
+     class=".bylineowner.ContentOwner"
+     manager=".interfaces.IContentByline"
+     weight="1" />
+
+  <!-- content modified -->
+  <zojax:pageelement
+     name="content.byline.modified"
+     for="zojax.content.type.interfaces.IContent"
+     template="bylinemodified.pt"
+     class=".bylinemodified.ContentModified"
+     manager=".interfaces.IContentByline"
+     weight="2" />
+
+</configure>

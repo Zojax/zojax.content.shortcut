@@ -1,0 +1,7 @@
+<tal:block define="context nocall:maincontext">
+  <tal:block content="structure pageelement:content.header" />
+
+  <div class="z-content-body" tal:content="structure view/render"></div>
+
+  <tal:block tal:content="structure pageelement:content.footer" />
+</tal:block>

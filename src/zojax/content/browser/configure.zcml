@@ -1,0 +1,96 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:i18n="http://namespaces.zope.org/i18n"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.content.browser">
+
+  <include file="byline.zcml" />
+  <include file="table.zcml" />
+  <include file="content.zcml" />
+  <include file="pagelettypes.zcml" />
+
+  <!-- default content icon -->
+  <browser:icon
+     name="zmi_icon"
+     file="text-x-generic.png"
+     for="zojax.content.type.interfaces.IContent" />
+
+  <browser:icon
+     name="zmi_icon"
+     file="text-x-generic.png"
+     for="zojax.content.type.interfaces.IContentType" />
+
+  <!-- container contents -->
+  <browser:defaultView
+     name="listing.html"
+     for="zojax.content.type.interfaces.IContentContainer" />
+
+  <zojax:pagelet
+     name="listing.html"
+     for="zojax.content.type.interfaces.IContentContainer"
+     provides="zojax.content.type.interfaces.IContentView
+	       .interfaces.IContainerListing"
+     class=".contents.Listing"
+     permission="zope.View" />
+
+  <zojax:pagelet
+     name="contents"
+     title="Contents"
+     type="wizard.step"
+     for="zojax.content.type.interfaces.IContainerContentsAware
+	  zojax.content.forms.interfaces.IEditContentWizard"
+     class=".contents.ContentsStep"
+     provides="zojax.layoutform.interfaces.IPageletFormView"
+     permission="zojax.ModifyContent"
+     weight="90" />
+
+  <zojax:pagelet
+     type="pagelet"
+     for=".contents.ContentsStep"
+     template="contents.pt" />
+
+  <browser:page
+     name="rebuildorder.html"
+     for="zojax.content.type.interfaces.IContentContainer"
+     class=".contents.RebuildOrder"
+     permission="zojax.ModifyContent" />
+
+  <!-- adding -->
+  <zojax:pagelet
+     name="+"
+     for="zojax.content.type.interfaces.IContentContainer"
+     provides=".interfaces.IContentAdding"
+     class=".adding.Adding"
+     permission="zope.View" />
+
+  <zojax:pagelet
+     type="pagelet"
+     for=".interfaces.IContentAdding"
+     template="adding.pt"
+     permission="zope.View" />
+
+  <!-- default menu item -->
+  <browser:menuItem
+     for="zojax.content.type.interfaces.IContent"
+     menu="zmi_views"
+     title="Context"
+     action="context.html"
+     permission="zojax.ModifyContent"
+     order="0" />
+
+  <!-- styles -->
+  <zojax:resourceinclude
+     name="zojax-content.css"
+     library="zojax"
+     type="stylesheet"
+     file="styles.css" filetype="zrt" />
+
+  <zojax:resource
+     name="zojax-content-parentArrowUp.gif"
+     file="parentArrowUp.gif" />
+
+  <!-- translations -->
+  <i18n:registerTranslations directory="locales"/>
+
+</configure>

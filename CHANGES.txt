@@ -1,0 +1,359 @@
+=======
+CHANGES
+=======
+
+1.2.4 (2009-11-19)
+------------------
+
+- Added container modified event to reordering container contents
+
+- Tests updated
+
+
+1.2.3 (2009-10-12)
+------------------
+
+- Send object modified event in content retitling form
+
+
+1.2.2 (2009-08-27)
+------------------
+
+- Fixed css for safari
+
+
+1.2.1 (2009-08-19)
+------------------
+
+- Remove bullet.gif from styles
+
+
+1.2.0 (2009-08-11)
+------------------
+
+- Merge zojax.content.byline
+
+- Remove security proxy in delete content view
+
+- Update styles
+
+
+1.1.0 (2009-07-15)
+------------------
+
+- Added caching
+
+- Delete view and action check for unremoveable content added
+
+
+1.0.0 (2009-06-21)
+------------------
+
+- Fixed contents buttons
+
+- Use IContentCommentsTable from zojax.content.type for contents table
+
+- Copyright changed to 'Zope Foundation and Contributors'
+
+
+0.100.0 (2009-05-05)
+--------------------
+
+- Do not use z3c.autoinclude
+
+
+0.99.11 (2009-03-12)
+--------------------
+
+- Removed context layout support
+
+- Moved add/edit forms to zojax.content.forms package
+
+- Moved owner change form to zojax.content.forms package
+
+- Added 'delete.html' removing content form
+
+- Added 'Contents' edit content wizard step
+
+- Removed contents.html form
+
+- Use zojax.content.actions for context actions
+
+
+0.99.10 (2008-12-25)
+--------------------
+
+- Fixed bug in hasEditableFields
+
+- Fixed IPaeglet contract implementation
+
+- Handle container without parents in content table
+
+
+0.99.9 (2008-12-22)
+-------------------
+
+- Use 'SelectedManagementView.html' as next url for edit form.
+
+- Use new pagelet api
+
+
+0.99.8 (2008-12-18)
+-------------------
+
+- Use adding.pt as adapter
+
+- Fixed xss hole (thanks anonymous zojax.net user)
+
+
+0.99.7 (2008-11-28)
+-------------------
+
+- Show change order buttons only if order supports IReordable
+
+- Use content order object in contents table directly
+
+- Added uid to content layout (allow customize)
+
+
+0.99.6 (2008-11-24)
+-------------------
+
+- Fixed python2.4 compatibility
+
+
+0.99.5 (2008-11-23)
+-------------------
+
+- Fixed recursion in context.html view
+
+- Added buildout for testing against zope3.4
+
+
+0.99.4 (2008-11-22)
+-------------------
+
+- Use 'context.html' as next url for add form
+
+- Use IItemViewView for context.html view
+
+
+0.99.3 (2008-11-17)
+-------------------
+
+- Added 'content.adding' pagelet type for adding content view
+
+- Moved all contents management code to ContainerContents table
+
+- Added custom contents table context url gernator
+
+- Added IItemViewView interface for custom view 'view name'
+
+
+0.99.2 (2008-11-12)
+-------------------
+
+- Use IContentView from zojax.content.type package
+
+- Use zojax.table for container content/listing forms
+
+
+0.99.0 (2008-11-04)
+-------------------
+
+- Split zojax.content to several subpackages
+
+
+0.18.0 (2008-10-31)
+-------------------
+
+- Do not use IOwnerAware expliticly for Item class
+
+- Added IAnnotatableOrder marker for object that supports
+  storing order data in annotations
+
+- Added different pagelet types for content view
+
+
+0.17.2 (2008-10-17)
+-------------------
+
+- Added translations: ru, nl
+
+
+0.17.1 (2008-10-15)
+-------------------
+
+- Fix available list content types
+
+
+0.17.0 (2008-10-15)
+-------------------
+
+- Prepare for removing auto generating content type maker interfaces.
+
+- `contenttype` attribute is makrer interface for content type.
+
+- `ctclass` custom content type implementation
+
+
+0.16.0 (2008-10-08)
+-------------------
+
+- Use 'contents.html' link for content in contents view
+
+- If container contains index.html content show it instead of listing
+
+- Added IRenameNotAllowed marker interface
+
+- Added container contents ordering
+
+- Use zojax.content i18n domain for transaltions
+
+- Use zc.copy for content copy
+
+
+0.15.0 (2008-08-28)
+-------------------
+
+- Added IPortalType,IActivePortalType types
+
+- Using content schema for content creation
+
+- Added short name validation for add/edit forms
+
+
+0.14.3 (2008-08-13)
+-------------------
+
+- Use new pageelement api
+
+- Added rename field to content edit form
+
+
+0.14.2 (2008-08-07)
+-------------------
+
+- Fixed content creation, if content class doesn't have__init__
+
+- Added `addform` attribute for zojax:content directive,
+  it allow use custom add form
+
+
+0.14.1 (2008-08-05)
+-------------------
+
+- Fixed container __delitem__
+
+- Fixed ContentType.create method
+
+- Tests updated
+
+
+0.14.0 (2008-08-04)
+-------------------
+
+- IItem is optional now
+
+- Custom `breadcrumb` for content objects
+
+- Added support for ordered containers
+
+
+0.13.2 (2008-07-28)
+-------------------
+
+- Fixed edit form
+
+
+0.13.1 (2008-07-24)
+-------------------
+
+- Added 'cancel' button to edit form
+
+
+0.13.0 (2008-05-26)
+-------------------
+
+- Moved content actions to zojax.ui.contentactions
+
+- Moved content byline to to zojax.ui.contentbyline
+
+- Use viewlet for rendering content layout
+
+
+0.12.0 (2008-04-08)
+-------------------
+
+- Added content actions
+
+
+0.11.4 (2008-04-01)
+-------------------
+
+- Code cleanup
+
+
+0.11.3 (2008-03-17)
+-------------------
+
+- Use zojax.contextlayout for context
+
+
+0.11.2 (2008-02-28)
+-------------------
+
+- Use z3c.autoinclude
+
+
+0.11.1 (2008-02-25)
+-------------------
+
+- Code cleanup
+
+
+0.11 (2008-02-20)
+-----------------
+
+- Replace zope.formlib with z3c.form
+
+
+0.10.2 (2008-02-18)
+-------------------
+
+- Removed `rwproperty.py` from package
+
+- Fixed bug with `View context` link in context information
+
+- Added default `adapter` to IContentAdding
+
+- Added `getContentType` to IContentAdding interface
+  returns bound IContentType object
+
+- Added viewlet structure for content view
+
+- Added viewlet structure for content byline
+
+
+0.10.1 (2008-02-12)
+-------------------
+
+- Move some code to zojax.contentextensions package
+
+
+0.10 (2008-02-04)
+-----------------
+
+- Rename 'for' to 'schema' for zojax:content directive
+
+
+0.9.1 (2008-02-02)
+------------------
+
+- Fixed missing import
+
+
+0.9.0 (2008-02-01)
+------------------
+
+- Initial release.

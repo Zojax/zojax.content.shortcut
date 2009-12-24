@@ -1,0 +1,81 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.content.browser">
+
+  <!-- listing table -->
+  <adapter
+     name="content.container.listing"
+     for="zojax.content.type.interfaces.IContentContainer * *"
+     provides="zope.contentprovider.interfaces.IContentProvider"
+     factory=".table.ContainerListing" />
+
+  <!-- contents table -->
+  <adapter
+     name="content.container.contents"
+     for="zojax.content.type.interfaces.IContentContainer * *"
+     provides="zope.contentprovider.interfaces.IContentProvider"
+     factory=".table.ContainerContents" />
+
+  <zojax:pagelet
+     type="table.view"
+     for=".table.ContainerContents *"
+     template="table.pt" />
+
+  <adapter factory=".table.ContainerURL" />
+
+  <!-- columns -->
+  <adapter
+     name="id"
+     factory=".table.IdColumn" />
+
+  <adapter
+     name="id"
+     factory=".table.RenameIdColumn" />
+
+  <adapter
+     name="icon"
+     factory=".table.IconColumn" />
+
+  <adapter
+     name="name"
+     factory=".table.NameColumn" />
+
+  <adapter
+     name="name"
+     factory=".table.ContentsNameColumn" />
+
+  <adapter
+     name="name"
+     factory=".table.RenameNameColumn" />
+
+  <adapter
+     name="title"
+     factory=".table.TitleColumn" />
+
+  <adapter
+     name="title"
+     factory=".table.ContentsTitleColumn" />
+
+  <adapter
+     name="title"
+     factory=".table.RenameTitleColumn" />
+
+  <adapter
+     name="type"
+     factory=".table.TypeColumn" />
+
+  <adapter
+     name="size"
+     factory=".table.SizeColumn" />
+
+  <adapter
+     name="created"
+     factory=".table.CreatedColumn" />
+
+  <adapter
+     name="modified"
+     factory=".table.ModifiedColumn" />
+
+</configure>

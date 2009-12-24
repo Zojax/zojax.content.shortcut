@@ -1,0 +1,288 @@
+/* zrt-cssregistry: */
+
+@media all {
+  
+  #z-content {
+    padding: 0;
+    background: transparent;
+  }
+  
+  #z-content h1 {
+    font-size: 130%;
+  }
+
+  .z-page #z-content-adding {
+    padding: 1em;
+    background: contentBackgroundColor;
+    border: borderWidth borderStyle globalExtraBorderColor;
+  }
+  
+  .z-content-title {
+  }
+
+  .z-content-description {
+    font-weight: bold;
+    display: block;
+    margin: 0em 0em 0.5em 0em;
+  }
+
+  .z-content-preview {
+    padding: 1em;
+    margin-top: 1em;
+    background: backgroundColor;
+    border: borderWidth borderStyle globalBorderColor;
+  }
+ 
+  .z-content-byline {
+    font-size: fontSmallSize;
+    font-weight: normal;
+    color: discreetColor;
+    margin: 0em 0em 0.5em 0em;
+  }
+  
+  .z-content-byline a {
+    text-decoration: none;
+    color: globalExtraColor;
+  }
+
+  .z-content-byline a:hover {
+    color: linkColor;
+  }
+  
+  .z-content-parent {
+    background: transparent url(zojax-content-parentArrowUp.gif) 4px 5px no-repeat;
+    padding: 0px 0px 1px 16px;
+    padding-bottom: 0.5em;
+  }
+
+  /* content body */
+  .z-content-body a {
+    text-decoration: none;
+    border-bottom: 1px disceetColor solid;
+  }
+
+  .z-content-body p a {
+    text-decoration: none;
+    border-bottom: 1px disceetColor solid;
+  }
+  
+  .z-content-body p a:visited {
+    color: linkVisitedColor;
+    background-color: transparent;
+  }
+  
+  .z-content-body p a:active {
+    color: linkActiveColor;
+    background-color: transparent;
+  }
+
+  .z-content-body ul {
+    list-style-type: square;
+  }
+
+  .z-content-body li a {
+    text-decoration: none;
+    border-bottom: 1px #cccccc solid;
+  }
+  
+  .z-content-body li a:visited {
+    color: linkVisitedColor;
+  }
+  
+  .z-content-body li a:active {
+    color: linkActiveColor;
+  }
+  
+  .z-content-body dd a {
+    text-decoration: none;
+    border-bottom: 1px #cccccc solid;
+  }
+  
+  .z-content-body dd a:visited {
+    color: linkVisitedColor;
+    background-color: transparent;
+  }
+  
+  .z-content-body dd a:active {
+    color: linkActiveColor;
+    background-color: transparent;
+  }
+
+  .z-content-body .z-table {
+    margin-top: 1.5em;
+  }
+  
+  /* base tags */
+  .z-content-body h1 {
+    font-size: 150% !important;
+  }
+  
+  .z-content-body h2 {
+    font-size: 140% !important;
+  }
+  
+  .z-content-body h3 {
+    font-size: 125% !important;
+    font-weight: bold;
+  }
+  
+  .z-content-body h4 {
+    font-size: 110% !important;
+    border-bottom: none;
+    font-weight: bold;
+  }
+  
+  .z-content-body h5 {
+    font-size: 100% !important;
+    border-bottom: none;
+    font-weight: bold;
+  }
+  
+  .z-content-body h6 {
+    font-size: fontSmallSize;
+    border-bottom: none;
+    font-weight: bold;
+  }
+
+  /* content listing */
+  .z-content-listing {
+    font-size: 100%;
+    margin: 1em 0em 1em 0em;
+    border-collapse: collapse;
+    border-left: borderWidth borderStyle globalBorderColor;
+    border-bottom: borderWidth borderStyle globalBorderColor;
+  }
+  .z-content-listing tr {
+    vertical-align: middle;
+  }
+  .z-content-listing th {
+    background: globalBackgroundColor;
+    border-top: borderWidth borderStyle globalBorderColor;
+    border-bottom: borderWidth borderStyle globalBorderColor;
+    border-right: borderWidth borderStyle globalBorderColor;
+    font-weight: normal;
+    padding: 0.25em 1em;
+    text-transform: textTransform;
+    text-align: center;
+  }
+  .z-content-listing .top {
+    border-left: borderWidth borderStyle backgroundColor;
+    border-top: borderWidth borderStyle backgroundColor ! important;
+    border-right: borderWidth borderStyle backgroundColor ! important;
+    text-align: right ! important;
+    padding: 0em 0em 1em 0em;
+  }
+  .z-content-listing .z-content-listingCheckbox {
+    text-align: center;
+    border: none;
+  }
+  .z-content-listing a { 
+    text-decoration: none;
+  }
+  .z-content-listing a:hover {
+    text-decoration: underline;
+  }
+  .z-content-listing td {
+    border-right: borderWidth borderStyle globalBorderColor;
+    padding: 0.25em 1em;
+  }
+  .z-content-listing img {
+    vertical-align: middle;
+  }
+
+  /* content adding */
+  #z-content-adding fieldset { 
+    font-size: 100%;
+  }
+
+  #z-content-adding ul {
+    margin: 0.5em 0 0 0.5em;
+    list-style: none;
+    list-style-image: none;
+    list-style-type: none;
+  }
+  
+  #z-content-adding li {
+    clear: both;
+    margin-bottom: 1em;
+  }
+
+  #z-content-adding span {
+    float: left;
+    padding-top: 8px;
+    padding-right: 0.5em;
+    height: 32px;
+  }
+
+  #z-content-adding a {
+    color: linkColor;
+    border: 0;
+    border-bottom: 1px dotted discreetColor;
+    text-decoration: none;
+  }
+
+  #z-content-adding a:visited {
+    color: linkColor;
+    background-color: transparent;
+  }
+
+  /* columns */
+  table.z-table td.ctb-typeicon { 
+    padding: 0.25em 0.5em;
+    text-align: center;
+  }
+
+  table.z-table td.ctb-location a {
+    color: discreetColor;
+    font-size: 90%;
+  }
+
+  table.z-table td.ctb-location img {
+    width: auto;
+    height: 1.2em
+  }
+ 
+  /* form widgets */ 
+  #content-widgets-title { 
+    width: 80%;
+  }
+
+  #content-widgets-description {
+    height: 5em;
+  }
+
+  /* content byline */
+  .z-content-byline {
+    font-size: fontSmallSize;
+    font-weight: normal;
+    color: discreetColor;
+    margin: 0em 0em 0.5em 0em;
+  }
+  
+  .z-content-byline a {
+    text-decoration: none;
+    color: globalExtraColor;
+  }
+  
+  .z-content-byline a:hover {
+    color: linkColor;
+  }
+
+}
+
+@media print {
+  .z-content-description {
+    font-weight: bold;
+  }
+  .z-content-listing,
+  .z-content-listing td {
+    border: 1pt solid black;
+    border-collapse: collapse;
+  }
+
+  /* Hide all the elements that are irrelevant for printing */
+  .z-content-byline,
+  .z-content-actions {
+    display: none;
+  }
+}

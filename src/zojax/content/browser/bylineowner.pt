@@ -1,0 +1,4 @@
+<tal:block condition="view/owner|nothing" i18n:domain="zojax.content.byline" i18n:translate="">
+  Created by <a tal:attributes="href view/profile|nothing" i18n:name="owner"
+	tal:omit-tag="not:view/profile|nothing" tal:content="view/owner" />
+</tal:block>
