@@ -58,7 +58,7 @@
   /* content body */
   .z-content-body a {
     text-decoration: none;
-    border-bottom: 1px discreetColor solid;
+/*    border-bottom: 1px discreetColor solid;*/
   }
 
   .z-content-body p a {
