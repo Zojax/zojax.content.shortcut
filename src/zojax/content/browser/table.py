@@ -11,6 +11,8 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+from zope.security.tests.test_standard_checkers import check_forbidden_call
+from zope.security.checker import canAccess
 """
 
 $Id$
@@ -320,11 +322,11 @@ class ContainerContents(ContainerListing):
                 if item['action'] == 'cut':
                     mover = IObjectMover(obj)
                     moveableTo = self.safe_getattr(mover, 'moveableTo', None)
-                    if moveableTo is None or not moveableTo(target):
+                    if moveableTo is None or not moveableTo(target) or not canAccess(obj.__parent__, '__delitem__'):
                         return False
                 elif item['action'] == 'copy':
                     copier = IObjectCopier(obj)
-                    copyableTo = self.safe_getattr(copier, 'copyableTo', None)
+                    copyableTo = self.safe_getattr(copier, 'copyableTo', None)  or not canAccess(target, '__setitem__')
                     if copyableTo is None or not copyableTo(target):
                         return False
                 else:
@@ -436,7 +438,7 @@ class IdColumn(AttributeColumn):
         table = self.table
 
         copier = IObjectCopier(content, None)
-        if copier is not None and copier.copyable():
+        if copier is not None and copier.copyable() and canAccess(table.context, '__setitem__'):
             copyable = True
             table.supportsCopy = True
         else:
