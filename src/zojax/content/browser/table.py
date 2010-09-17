@@ -326,8 +326,8 @@ class ContainerContents(ContainerListing):
                         return False
                 elif item['action'] == 'copy':
                     copier = IObjectCopier(obj)
-                    copyableTo = self.safe_getattr(copier, 'copyableTo', None)  or not canAccess(target, '__setitem__')
-                    if copyableTo is None or not copyableTo(target):
+                    copyableTo = self.safe_getattr(copier, 'copyableTo', None)
+                    if copyableTo is None or not copyableTo(target) or not canAccess(target, '__setitem__'):
                         return False
                 else:
                     raise
