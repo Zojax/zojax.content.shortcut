@@ -563,7 +563,8 @@ class ContentsNameColumn(NameColumn):
         value = cgi.escape(self.query() or '')
 
         if self.environ['url']:
-            if checkPermission('zojax.ModifyContent', content):
+            if checkPermission('zojax.ModifyContent', content) \
+                and queryMultiAdapter((content, request), interface.Interface, name="context.html"):
                 return u'<a href="%s/context.html">%s</a>'%(
                     self.environ['url'], value)
             else:
