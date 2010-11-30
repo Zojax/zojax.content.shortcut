@@ -11,8 +11,6 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-from zope.security.tests.test_standard_checkers import check_forbidden_call
-from zope.security.checker import canAccess
 """
 
 $Id$
@@ -23,7 +21,7 @@ from zope import interface, component
 from zope.event import notify
 from zope.size.interfaces import ISized
 from zope.proxy import removeAllProxies
-from zope.security import canWrite, checkPermission
+from zope.security import canWrite, checkPermission, canAccess
 from zope.exceptions import DuplicationError
 from zope.component import getMultiAdapter, queryMultiAdapter
 from zope.traversing.api import traverse, getPath, joinPath, getName
@@ -40,6 +38,8 @@ from zope.app.container.interfaces import DuplicateIDError, IContainerNamesConta
 from zope.app.container.contained import notifyContainerModified
 from zope.i18n import translate
 from zope.lifecycleevent import ObjectModifiedEvent, Attributes
+
+from zc.shortcut.interfaces import IObjectLinker
 
 from zojax.table.table import Table
 from zojax.table.column import Column, AttributeColumn
@@ -183,6 +183,9 @@ class ContainerContents(ContainerListing):
 
         elif "form.buttons.paste" in request:
             self.pasteObjects()
+        
+        elif "form.buttons.pasteLink" in request:
+            self.pasteObjectLinks()
 
         order = IOrder(self.context, None)
         if order is not None and IReordable.providedBy(order):
@@ -220,6 +223,7 @@ class ContainerContents(ContainerListing):
         self.specialButtons = IRenameContainerContents.providedBy(self)
         self.normalButtons = not self.specialButtons
         self.supportsPaste = self.pasteable()
+        self.supportsPasteLink = self.linkable()
 
     def safe_getattr(self, obj, attr, default):
         """Attempts to read the attr, returning default if Unauthorized."""
@@ -254,6 +258,7 @@ class ContainerContents(ContainerListing):
         """Copy objects specified in a list of object ids"""
         request = self.request
         ids = request.get('ids')
+
         if not ids:
             IStatusMessage(request).add(
                 _("You didn't specify any ids to copy."), 'error')
@@ -271,7 +276,7 @@ class ContainerContents(ContainerListing):
                     _("Object '${name}' cannot be copied",{"name": id}),'error')
                 return
             items.append(joinPath(container_path, id))
-
+        
         # store the requested operation in the principal annotations:
         clipboard = getPrincipalClipboard(request)
         clipboard.clearContents()
@@ -359,6 +364,62 @@ class ContainerContents(ContainerListing):
                     copier = IObjectCopier(removeAllProxies(obj))
                     try:
                         copier.copyTo(target)
+                    except DuplicateIDError:
+                        duplicated_id = True
+                else:
+                    raise
+
+            if duplicated_id:
+                not_pasteable_ids.append(getName(obj))
+
+        if moved:
+            clipboard.clearContents()
+
+        if not_pasteable_ids:
+            abort()
+            IStatusMessage(request).add(
+                _("The given name(s) %s is / are already being used" %(
+                str(not_pasteable_ids))), 'error')
+            
+    def linkable(self):
+        """Decide if there is anything to paste """
+        target = self.context
+        clipboard = getPrincipalClipboard(self.request)
+        items = clipboard.getContents()
+        for item in items:
+            try:
+                obj = traverse(target, item['target'])
+            except TraversalError:
+                pass
+            else:
+                if item['action'] == 'copy':
+                    linker = IObjectLinker(obj)
+                    linkableTo = self.safe_getattr(linker, 'linkableTo', None)
+                    if linkableTo is None or not linkableTo(target) or not canAccess(target, '__setitem__'):
+                        return False
+                else:
+                    raise
+
+        return True
+
+    def pasteObjectLinks(self):
+        """Paste oject links in the user clipboard to the container """
+        target = self.context
+        clipboard = getPrincipalClipboard(self.request)
+        items = clipboard.getContents()
+        moved = False
+        not_pasteable_ids = []
+        for item in items:
+            duplicated_id = False
+            try:
+                obj = traverse(target, item['target'])
+            except TraversalError:
+                pass
+            else:
+                if item['action'] == 'copy':
+                    linker = IObjectLinker(removeAllProxies(obj))
+                    try:
+                        linker.linkTo(target)
                     except DuplicateIDError:
                         duplicated_id = True
                 else:

@@ -48,6 +48,9 @@
   <input type="submit" name="form.buttons.paste" value="Paste"
          class="z-form-button" i18n:attributes="value"
          tal:condition="context/supportsPaste" />
+  <input type="submit" name="form.buttons.pasteLink" value="Paste Link"
+         class="z-form-button" i18n:attributes="value"
+         tal:condition="context/supportsPasteLink" />
   <input type="submit" name="form.buttons.delete" value="Delete"
          class="z-form-removebutton" i18n:attributes="value"
          tal:condition="context/supportsDelete" />
