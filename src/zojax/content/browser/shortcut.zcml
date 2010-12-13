@@ -1,0 +1,14 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.content.browser">
+
+  <adapter factory=".shortcut.getShortcutContentType" />
+  <adapter factory=".shortcut.getShortcutItem" />
+  
+  <class class="zc.shortcut.shortcut.Shortcut">
+    <implements interface="zojax.content.type.interfaces.ISearchableContent" />
+  </class>
+
+</configure>

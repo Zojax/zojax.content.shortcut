@@ -14,13 +14,16 @@
 from zope.security.tests.test_standard_checkers import check_forbidden_call
 from zope.security.checker import canAccess
 from zope.proxy import getProxiedObject, non_overridable
-from zc.shortcut.interfaces import IObjectLinker
+from zope import component, interface
+from zc.shortcut.interfaces import IObjectLinker, IShortcut
 from zc.shortcut.factory import Factory
 from zc.shortcut.shortcut import Shortcut
 from zc.shortcut.proxy import TargetProxy, ProxyBase
 from z3c.proxy.container import ContainerLocationProxy, proxify
+
+
 from zojax.content.browser.tests.content import IContainer
-from zojax.content.type.interfaces import IContentContainer
+from zojax.content.type.interfaces import IContentContainer, IContentType, IItem
 """
 
 $Id$
@@ -34,3 +37,14 @@ def target(self):
     return TargetProxy(target, self.__parent__, self.__name__, self)
 
 Shortcut.target = property(target)
+
+@component.adapter(IShortcut)
+@interface.implementer(IContentType)
+def getShortcutContentType(context):
+    return IContentType(context.target, None)
+
+
+@component.adapter(IShortcut)
+@interface.implementer(IItem)
+def getShortcutItem(context):
+    return IItem(context.target, None)

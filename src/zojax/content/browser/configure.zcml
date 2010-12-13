@@ -9,6 +9,7 @@
   <include file="table.zcml" />
   <include file="content.zcml" />
   <include file="pagelettypes.zcml" />
+  <include file="shortcut.zcml" />
 
   <!-- default content icon -->
   <browser:icon
