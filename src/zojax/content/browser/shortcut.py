@@ -24,6 +24,7 @@ from z3c.proxy.container import ContainerLocationProxy, proxify
 
 from zojax.content.browser.tests.content import IContainer
 from zojax.content.type.interfaces import IContentContainer, IContentType, IItem
+from zojax.ownership.interfaces import IOwnership
 """
 
 $Id$
@@ -48,3 +49,8 @@ def getShortcutContentType(context):
 @interface.implementer(IItem)
 def getShortcutItem(context):
     return IItem(context.target, None)
+
+@component.adapter(IShortcut)
+@interface.implementer(IOwnership)
+def getShortcutOwnership(context):
+    return IOwnership(context.target, None)
