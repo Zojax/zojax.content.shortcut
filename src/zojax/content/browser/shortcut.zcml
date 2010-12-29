@@ -10,7 +10,7 @@
   <adapter factory=".shortcut.getShortcutOwnership" />
 
   <adapter zcml:condition="installed zojax.blogger"
-           for="zojax.blogger.interfaces.IBlogPost"
+           provides="zojax.blogger.interfaces.IBlogPost"
            factory=".shortcut.getShortcutItem" />
   
   <class class="zc.shortcut.shortcut.Shortcut">
