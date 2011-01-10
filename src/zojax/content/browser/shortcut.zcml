@@ -11,7 +11,7 @@
 
   <adapter zcml:condition="installed zojax.blogger"
            provides="zojax.blogger.interfaces.IBlogPost"
-           factory=".shortcut.getShortcutItem" />
+           factory=".shortcut.getShortcutItemBlogPost" />
   
   <class class="zc.shortcut.shortcut.Shortcut">
     <implements interface="zojax.content.type.interfaces.ISearchableContent" />
