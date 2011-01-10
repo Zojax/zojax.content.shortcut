@@ -50,6 +50,7 @@ def getShortcutContentType(context):
 def getShortcutItem(context):
     return IItem(context.target, None)
 
+@component.adapter(IShortcut)
 def getShortcutItemBlogPost(context):
     from zojax.blogger.interfaces import IBlogPost
     return IBlogPost(context, None)
