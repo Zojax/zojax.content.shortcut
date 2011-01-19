@@ -397,7 +397,8 @@ class ContainerContents(ContainerListing):
                     linkableTo = self.safe_getattr(linker, 'linkableTo', None)
                     if linkableTo is None or not linkableTo(target) or not canAccess(target, '__setitem__'):
                         return False
-                return False
+                else:
+                    return False
         return True
 
     def pasteObjectLinks(self):
