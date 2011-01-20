@@ -18,7 +18,7 @@ $Id$
 from zope import interface, component
 from zope.app.component.interfaces import ISite
 from zope.app.zopeappgenerations import getRootFolder
-from zope.app.component.site import setSite
+from zope.app.component.hooks import getSite, setSite
 from zc.shortcut.interfaces import IShortcut
 
 from zojax.content.shortcut.shortcut import shortCutAdded
@@ -26,15 +26,15 @@ from zojax.content.shortcut.shortcut import shortCutAdded
 
 def evolve(context):
     root = getRootFolder(context)
-
+    old_site = getSite()
     for site in findObjectsMatching(root, ISite.providedBy):
         setSite(site)
         try:
             for shortcut in findObjectsMatching(site, IShortcut.providedBy):
-                print 'uodating shortcut', shortcut
+                print 'updating shortcut', shortcut
                 shortCutAdded(shortcut, None)
         finally:
-            setSite(None)
+            setSite(old_site)
 
 
 def findObjectsMatching(root, condition):
