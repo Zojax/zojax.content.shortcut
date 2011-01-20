@@ -11,7 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Setup for zojax.content.type package
+"""Setup for zojax.content.shortcut package
 
 $Id$
 """
@@ -24,11 +24,11 @@ def read(*rnames):
 version='0'
 
 
-setup(name = 'zojax.content.browser',
+setup(name = 'zojax.content.shortcut',
       version = version,
-      author = 'Nikolay Kim',
-      author_email = 'fafhrd91@gmail.com',
-      description = "zojax content - Alternative implementation of content types system.",
+      author = 'Anatoly Bubenkov',
+      author_email = 'bubenkoff@gmail.com',
+      description = "zojax shortcut - Zojax integration of zc.shortcut",
       long_description = (
         'Detailed Documentation\n' +
         '======================\n'
@@ -57,19 +57,7 @@ setup(name = 'zojax.content.browser',
                           'z3c.breadcrumb',
                           'z3c.proxy',
                           'zc.shortcut',
-                          'zojax.cache',
                           'zojax.content.type',
-                          'zojax.content.forms',
-                          'zojax.content.actions',
-                          'zojax.principal.profile',
-                          'zojax.formatter',
-                          'zojax.layout',
-                          'zojax.layoutform',
-                          'zojax.statusmessage',
-                          'zojax.pageelement',
-                          'zojax.resource',
-                          'zojax.resourcepackage',
-                          'zojax.table',
                           ],
       extras_require = dict(test=['zope.app.testing',
                                   'zope.app.zcmlfiles',
@@ -79,8 +67,6 @@ setup(name = 'zojax.content.browser',
                                   'zojax.security',
                                   'zojax.autoinclude',
                                   'zojax.content.type [test]',
-                                  'zojax.personal.content',
-                                  'zojax.ui.breadcrumbs',
                                   ]),
       include_package_data = True,
       zip_safe = False

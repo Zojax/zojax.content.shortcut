@@ -16,13 +16,19 @@
 $Id$
 """
 from zope import interface
-from zojax.cache.view import cache
-from zojax.cache.keys import ContextModified
-from zojax.content.browser.cache import ContentView
+from zope.i18nmessageid import MessageFactory
+
+_ = MessageFactory('zojax.content.shortcut')
 
 
-class ContentFooter(object):
-
-    @cache('content.footer', ContentView, ContextModified)
-    def updateAndRender(self):
-        return super(ContentFooter, self).updateAndRender()
+class IShortcuts(interface.Interface):
+    
+    def add(ob):
+        """ add shortcut """
+    
+    def remove(ob):
+        """ remove shortcut """
+        
+    def items():
+        """ shortcuts for object """
+    

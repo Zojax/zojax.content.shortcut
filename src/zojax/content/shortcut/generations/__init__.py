@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (c) 2009 Zope Foundation and Contributors.
+# Copyright (c) 2008 Zope Foundation and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -15,21 +15,9 @@
 
 $Id$
 """
-from zope import interface
-from zope.dublincore.interfaces import ICMFDublinCore
-from zojax.formatter.utils import getFormatter
+from zope.app.generations.generations import SchemaManager
 
-
-class ContentModified(object):
-
-    def update(self):
-        dc = ICMFDublinCore(self.context, None)
-
-        if dc is not None and dc.modified:
-            formatter = getFormatter(self.request, 'fancyDatetime', 'medium')
-            self.modified = formatter.format(dc.modified)
-        else:
-            self.modified = None
-
-    def isAvailable(self):
-        return self.modified is not None
+schemaManager = SchemaManager(
+    minimum_generation=0,
+    generation=0,
+    package_name='zojax.content.shortcut')

@@ -3,7 +3,7 @@
    xmlns:zojax="http://namespaces.zope.org/zojax"
    xmlns:browser="http://namespaces.zope.org/browser"
    xmlns:zcml="http://namespaces.zope.org/zcml"
-   i18n_domain="zojax.content.browser">
+   i18n_domain="zojax.content.shortcut">
 
   <adapter factory=".shortcut.getShortcutContentType" />
   <adapter factory=".shortcut.getShortcutItem" />
@@ -16,5 +16,24 @@
   <class class="zc.shortcut.shortcut.Shortcut">
     <implements interface="zojax.content.type.interfaces.ISearchableContent" />
   </class>
+  
+  <zojax:extension
+     name="content.shortcuts"
+     title="Content Shortcuts"
+     description="Content Shortcuts extension."
+     for="zojax.content.type.interfaces.IContent"
+     schema=".interfaces.IShortcuts"
+     class=".shortcut.ShortcutsExtension"
+     permission="zojax.ModifyContent" />
+     
+  <subscriber handler=".shortcut.shortCutAdded" />
+  <subscriber handler=".shortcut.shortCutRemoved" />
+  <subscriber handler=".shortcut.shortCutModified" />
+
+  <!-- generations -->
+  <utility
+     name="zojax.content.shortcut"
+     provides="zope.app.generations.interfaces.ISchemaManager"
+     component=".generations.schemaManager" />
 
 </configure>

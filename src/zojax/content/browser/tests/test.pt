@@ -1,2 +1,0 @@
-
-<div tal:content="context/@@absolute_url"></div>

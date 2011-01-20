@@ -1,2 +1,0 @@
-<div class="z-content-description"
-     tal:condition="view/description" tal:content="structure view/description"></div>
