@@ -19,6 +19,8 @@ from zope import interface, component
 from zope.app.component.interfaces import ISite
 from zope.app.zopeappgenerations import getRootFolder
 from zope.app.component.hooks import getSite, setSite
+from zope.component.interfaces import ComponentLookupError
+
 from zc.shortcut.interfaces import IShortcut
 
 from zojax.content.shortcut.shortcut import shortCutAdded
@@ -32,7 +34,10 @@ def evolve(context):
         try:
             for shortcut in findObjectsMatching(site, IShortcut.providedBy):
                 print 'updating shortcut', shortcut
-                shortCutAdded(shortcut, None)
+                try:
+                    shortCutAdded(shortcut, None)
+                except ComponentLookupError:
+                    pass
         finally:
             setSite(old_site)
 
