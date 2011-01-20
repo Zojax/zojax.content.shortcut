@@ -30,7 +30,8 @@ def evolve(context):
     for site in findObjectsMatching(root, ISite.providedBy):
         setSite(site)
         try:
-            for shortcut in findObjectsMatching(site, IShortcut):
+            for shortcut in findObjectsMatching(site, IShortcut.providedBy):
+                print shortcut
                 shortCutAdded(shortcut, None)
         finally:
             setSite(None)

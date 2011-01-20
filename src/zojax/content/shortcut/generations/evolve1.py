@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (c) 2008 Zope Foundation and Contributors.
+# Copyright (c) 2008 Zope Corporation and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -15,9 +15,4 @@
 
 $Id$
 """
-from zope.app.generations.generations import SchemaManager
-
-schemaManager = SchemaManager(
-    minimum_generation=0,
-    generation=1,
-    package_name='zojax.content.shortcut')
+from install import evolve
