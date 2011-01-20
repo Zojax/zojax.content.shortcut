@@ -31,11 +31,10 @@ def evolve(context):
         setSite(site)
         try:
             for shortcut in findObjectsMatching(site, IShortcut.providedBy):
-                print shortcut
+                print 'uodating shortcut', shortcut
                 shortCutAdded(shortcut, None)
         finally:
             setSite(None)
-    raise
 
 
 def findObjectsMatching(root, condition):

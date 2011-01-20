@@ -20,4 +20,4 @@ from zope.app.generations.generations import SchemaManager
 schemaManager = SchemaManager(
     minimum_generation=0,
     generation=1,
-    package_name='zojax.content.shortcut')
+    package_name='zojax.content.shortcut.generations')
