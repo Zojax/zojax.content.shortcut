@@ -93,17 +93,23 @@ class ShortcutsExtension(object):
         ids = component.getUtility(IIntIds)
         return filter(bool, map(ids.queryObject, self.data.get('items', set())))
       
+
+def safeIndexObject(item):
+    try:
+        indexObject(item)
+    except KeyError:
+        return
       
 @component.adapter(IShortcut, IIntIdAddedEvent)
 def shortCutAdded(object, obevent):
     IShortcuts(object.raw_target).add(object)
-    map(lambda x: indexObject(x), findObjectsMatching(object.raw_target, ISearchableContent.providedBy))
+    map(lambda x: safeIndexObject(x), findObjectsMatching(object.raw_target, ISearchableContent.providedBy))
 
 
 @component.adapter(IShortcut, IIntIdRemovedEvent)
 def shortCutRemoved(object, event):
     IShortcuts(object.raw_target).remove(object)
-    map(lambda x: indexObject(x), findObjectsMatching(object.raw_target, ISearchableContent.providedBy))
+    map(lambda x: safeIndexObject(x), findObjectsMatching(object.raw_target, ISearchableContent.providedBy))
 
 
 @component.adapter(IShortcut, IObjectModifiedEvent)
