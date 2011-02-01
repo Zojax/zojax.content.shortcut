@@ -29,6 +29,7 @@
   <subscriber handler=".shortcut.shortCutAdded" />
   <subscriber handler=".shortcut.shortCutRemoved" />
   <subscriber handler=".shortcut.shortCutModified" />
+  <subscriber handler=".shortcut.objectRemoved" />
 
   <!-- generations -->
   <utility

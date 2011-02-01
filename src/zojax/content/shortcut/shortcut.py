@@ -100,6 +100,7 @@ def safeIndexObject(item):
     except KeyError:
         return
       
+      
 @component.adapter(IShortcut, IIntIdAddedEvent)
 def shortCutAdded(object, obevent):
     IShortcuts(object.raw_target).add(object)
@@ -115,3 +116,9 @@ def shortCutRemoved(object, event):
 @component.adapter(IShortcut, IObjectModifiedEvent)
 def shortCutModified(object, event):
     pass
+
+
+@component.adapter(IContent, IIntIdRemovedEvent)
+def objectRemoved(object, event):
+    for shortcut in list(IShortcuts(object, {}).items()):
+        del shortcut.__parent__[shortcut.__name__]
