@@ -38,7 +38,10 @@ def evolve(context):
                 try:
                     getParents(shortcut.raw_target)
                 except TypeError:
-                    objectRemoved(shortcut.raw_target, None) 
+                    try:
+                        objectRemoved(shortcut.raw_target, None)
+                    except ComponentLookupError:
+                        pass
         finally:
             setSite(old_site)
 
