@@ -91,8 +91,10 @@ class ShortcutsExtension(object):
 
     def items(self):
         ids = component.getUtility(IIntIds)
-        return filter(bool, map(ids.queryObject, self.data.get('items', set())))
-      
+        try:
+            return filter(bool, map(ids.queryObject, self.data.get('items', set())))
+        except TypeError:
+            return ()
 
 def safeIndexObject(item):
     try:
