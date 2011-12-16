@@ -3,7 +3,10 @@
    xmlns:zojax="http://namespaces.zope.org/zojax"
    xmlns:browser="http://namespaces.zope.org/browser"
    xmlns:zcml="http://namespaces.zope.org/zcml"
+   xmlns:i18n="http://namespaces.zope.org/i18n"
    i18n_domain="zojax.content.shortcut">
+
+  <i18n:registerTranslations directory="locales" />
 
   <adapter factory=".shortcut.getShortcutContentType" />
   <adapter factory=".shortcut.getShortcutItem" />
