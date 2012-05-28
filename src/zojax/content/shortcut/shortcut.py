@@ -11,6 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+from zojax.content.type.constraints import checkObject
 """
 
 $Id$
@@ -23,6 +24,7 @@ from zc.shortcut.interfaces import IObjectLinker, IShortcut
 from zc.shortcut.factory import Factory
 from zc.shortcut.shortcut import Shortcut
 from zc.shortcut.proxy import TargetProxy, ProxyBase
+from zc.shortcut.adapters import ObjectLinkerAdapter
 from z3c.proxy.container import ContainerLocationProxy, proxify
 from zope.security.proxy import removeSecurityProxy
 from zope.proxy import removeAllProxies, sameProxiedObjects
@@ -40,7 +42,7 @@ from zojax.catalog.utils import indexObject
 
 from interfaces import IShortcuts
 
-    
+
 def target(self):
     target = self.raw_target
     proxied_target = TargetProxy(target, target.__parent__, target.__name__, self)
@@ -79,7 +81,7 @@ class ShortcutsExtension(object):
         items = self.data.get('items', set())
         items.add(id)
         self.data['items'] = items
-        
+
     def remove(self, ob):
         id = component.getUtility(IIntIds).getId(ob)
         items = self.data.get('items', set())
@@ -101,8 +103,8 @@ def safeIndexObject(item):
         indexObject(item)
     except KeyError:
         return
-      
-      
+
+
 @component.adapter(IShortcut, IIntIdAddedEvent)
 def shortCutAdded(object, obevent):
     ext = IShortcuts(object.raw_target, None)
@@ -128,3 +130,17 @@ def shortCutModified(object, event):
 def objectRemoved(object, event):
     for shortcut in list(IShortcuts(object, {}).items()):
         del shortcut.__parent__[shortcut.__name__]
+
+
+class ContentLinker(ObjectLinkerAdapter):
+    component.adapts(IContent)
+    interface.implements(IObjectLinker)
+
+    def linkableTo(self, target, name=None):
+        if name is None:
+            name = self.context.__name__
+        try:
+            checkObject(target, name, self.context)
+        except interface.Invalid:
+            return False
+        return True

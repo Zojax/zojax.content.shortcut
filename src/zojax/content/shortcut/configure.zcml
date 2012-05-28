@@ -11,15 +11,16 @@
   <adapter factory=".shortcut.getShortcutContentType" />
   <adapter factory=".shortcut.getShortcutItem" />
   <adapter factory=".shortcut.getShortcutOwnership" />
+  <adapter factory=".shortcut.ContentLinker" />
 
   <adapter zcml:condition="installed zojax.blogger"
            provides="zojax.blogger.interfaces.IBlogPost"
            factory=".shortcut.getShortcutItemBlogPost" />
-  
+
   <class class="zc.shortcut.shortcut.Shortcut">
     <implements interface="zojax.content.type.interfaces.ISearchableContent" />
   </class>
-  
+
   <zojax:extension
      name="content.shortcuts"
      title="Content Shortcuts"
@@ -28,7 +29,7 @@
      schema=".interfaces.IShortcuts"
      class=".shortcut.ShortcutsExtension"
      permission="zojax.ModifyContent" />
-     
+
   <subscriber handler=".shortcut.shortCutAdded" />
   <subscriber handler=".shortcut.shortCutRemoved" />
   <subscriber handler=".shortcut.shortCutModified" />
