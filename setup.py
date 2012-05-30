@@ -58,6 +58,7 @@ setup(name = 'zojax.content.shortcut',
                           'z3c.proxy',
                           'zc.shortcut',
                           'zojax.content.type',
+                          'zojax.extensions'
                           ],
       extras_require = dict(test=['zope.app.testing',
                                   'zope.app.zcmlfiles',
