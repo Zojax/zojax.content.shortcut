@@ -33,13 +33,13 @@ from zope.app.intid.interfaces import IIntIdAddedEvent, IIntIdRemovedEvent,\
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from zope.event import notify
 from zope.lifecycleevent import ObjectModifiedEvent
+from zojax.members.interfaces import IMembersAware
 
 from zojax.content.type.interfaces import IContentContainer, IContentType, IItem,\
     IContent, ISearchableContent
 from zojax.ownership.interfaces import IOwnership
 from zojax.catalog.generations.install import findObjectsMatching
 from zojax.catalog.utils import indexObject
-
 from interfaces import IShortcuts
 
 
@@ -50,13 +50,16 @@ def target(self):
         return ContainerLocationProxy(proxied_target, self.__parent__, self.__name__)
     return proxied_target
 
+def members(self):
+    return self.target.members
+
 Shortcut.target = property(target)
+Shortcut.members = property(members)
 
 @component.adapter(IShortcut)
 @interface.implementer(IContentType)
 def getShortcutContentType(context):
     return IContentType(context.target, None)
-
 
 @component.adapter(IShortcut)
 @interface.implementer(IItem)
