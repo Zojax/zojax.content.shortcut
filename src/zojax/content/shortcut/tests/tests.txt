@@ -1,0 +1,73 @@
+========
+Document
+========
+
+    >>> from zope import component, interface, event
+    >>> from zope.testbrowser.testing import Browser
+    >>> from zope.lifecycleevent import ObjectCreatedEvent
+    >>> from zojax.content.space.content import ContentSpace
+    >>> from zojax.content.shortcut.tests.tests import Folder
+
+    >>> root = getRootFolder()
+    >>> space = ContentSpace(title=u'Space')
+    >>> event.notify(ObjectCreatedEvent(space))
+    >>> root['space'] = space
+
+    >>> actor = Browser()
+    >>> actor.handleErrors = False
+    >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+
+
+Install product
+
+    >>> actor.open("http://localhost/space/context.html/content/")
+    >>> actor.getLink('Workspaces').click()
+    >>> actor.getControl(name="workspaces.widgets.workspaces:list").value = ['documents']
+    >>> actor.getControl(name="content.edit.buttons.save").click()
+
+    >>> folder = Folder(title="Folder")
+    >>> event.notify(ObjectCreatedEvent(folder))
+    >>> root['space']['documents']['folder'] = folder
+    >>> folder1 = Folder(title="Folder1")
+    >>> event.notify(ObjectCreatedEvent(folder1))
+    >>> root['space']['documents']['folder1'] = folder1
+
+
+
+Add document
+
+    >>> actor.open("http://localhost/space/documents/context.html")
+    >>> actor.getControl(name="ids:list").value = ['folder1']
+    >>> print actor.contents
+    <!DOCTYPE html ...
+    ...
+          <th class="z-table-cell-min"></th> <th class="z-table-cell-min"></th> <th>Name</th> <th>Title</th> <th>Size</th> <th>Created</th> <th>Modified</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="z-table-record odd">
+          <td class="z-table-cell-min">...<td><a href="http://localhost/space/documents/folder/context.html">folder</a></td> <td>Folder</td> <td>0 items</td> ...</td>
+        </tr> <tr class="z-table-record even">
+          <td class="z-table-cell-min">...<td><a href="http://localhost/space/documents/folder1/context.html">folder1</a></td> <td>Folder1</td> <td>0 items</td> ...</td>
+        </tr>
+    ...
+    </html>
+
+        
+        
+    >>> actor.getControl("Copy").click()
+    >>> actor.open("http://localhost/space/documents/folder/context.html")
+    >>> 'folder1' in actor.contents
+        False
+    >>> actor.getControl("Paste Link").click()
+    >>> 'folder1' in actor.contents
+        True
+    >>> print actor.contents
+    <!DOCTYPE html ...
+    ...
+      <tbody>
+        <tr class="z-table-record odd">
+          <td class="z-table-cell-min">...<td><a href="http://localhost/space/documents/folder/folder1/">folder1</a></td> <td>Folder1</td> <td>0 items</td> <td>...</td>
+        </tr>
+    ...
+    </html>
